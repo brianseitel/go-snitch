@@ -2,13 +2,15 @@ package jobs
 
 import (
 	"fmt"
+
 	"github.com/brianseitel/snitch/app"
+	"github.com/brianseitel/snitch/app/models"
 )
 
-type TrackerJob struct {}
+type TrackerJob struct{}
 
 type Result struct {
-	id int
+	id   int
 	late int
 }
 
@@ -19,7 +21,7 @@ func (j TrackerJob) Run() {
 FROM scripts s1
 LEFT JOIN scripts s2 ON s2.id = s1.id AND s2.last_checkin > DATE_SUB(NOW(), INTERVAL s2.interval MINUTE)
 GROUP BY s1.name`
-	
+
 	results := []Result{}
 
 	results, err := app.DB.Select(models.Script{}, sql)

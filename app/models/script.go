@@ -2,18 +2,19 @@ package models
 
 import (
 	"math/rand"
-    "github.com/revel/revel"
 	"time"
+
 	"github.com/dustin/go-humanize"
+	"github.com/revel/revel"
 )
 
 type Script struct {
-    Id int64
-    Name string
-    Interval string `db:"interval"`
-    LastCheckin string `db:"last_checkin"`
-    Severity int64
-    Url string
+	Id          int64
+	Name        string
+	Interval    string `db:"interval"`
+	LastCheckin string `db:"last_checkin"`
+	Severity    int64
+	Url         string
 }
 
 func (s *Script) Late() bool {
@@ -35,25 +36,25 @@ var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
 func (s *Script) GenerateUrl() string {
 	b := make([]rune, 12) // 12 letters long
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
-    for i := range b {
-        b[i] = letters[r.Intn(len(letters))]
-    }
-    return string(b)
+	for i := range b {
+		b[i] = letters[r.Intn(len(letters))]
+	}
+	return string(b)
 }
 
 func (b *Script) Validate(v *revel.Validation) {
 
-    v.Check(b.Name,
-        revel.ValidRequired(),
-        revel.ValidMaxSize(64))
+	v.Check(b.Name,
+		revel.ValidRequired(),
+		revel.ValidMaxSize(64))
 
-    v.Check(b.Interval,
-        revel.ValidRequired(),
-        revel.ValidMaxSize(32))
+	v.Check(b.Interval,
+		revel.ValidRequired(),
+		revel.ValidMaxSize(32))
 
-    v.Check(b.LastCheckin,
-        revel.ValidRequired())
+	v.Check(b.LastCheckin,
+		revel.ValidRequired())
 
-    v.Check(b.Severity,
-        revel.ValidRequired())
+	v.Check(b.Severity,
+		revel.ValidRequired())
 }

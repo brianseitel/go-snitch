@@ -1,10 +1,11 @@
 package controllers
 
 import (
-	"github.com/revel/revel"
 	"github.com/brianseitel/snitch/app"
 	"github.com/brianseitel/snitch/app/models"
+	"github.com/revel/revel"
 )
+
 type App struct {
 	GorpController
 }
