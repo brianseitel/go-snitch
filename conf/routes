@@ -3,11 +3,12 @@
 # ~~~~
 
 module:testrunner
+module:jobs
 
 GET     /                                       App.Index
-GET     /add                                    Scripts.Add
+POST    /add                                    Scripts.Add
 GET     /list                                   Scripts.List
-GET     /checkin                                Scripts.DoCheckin
+# GET     /:url                                   Scripts.DoCheckin
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

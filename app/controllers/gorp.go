@@ -2,14 +2,12 @@ package controllers
  
 import (
     "database/sql"
+    "github.com/brianseitel/snitch/app"
     "github.com/coopernurse/gorp"
     _ "github.com/go-sql-driver/mysql"
     r "github.com/revel/revel"
 )
- 
-var (
-    Dbm *gorp.DbMap
-)
+
  
 type GorpController struct {
     *r.Controller
@@ -17,7 +15,7 @@ type GorpController struct {
 }
  
 func (c *GorpController) Begin() r.Result {
-    txn, err := Dbm.Begin()
+    txn, err := app.DB.Begin()
     if err != nil {
         panic(err)
     }
