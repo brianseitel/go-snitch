@@ -1,6 +1,7 @@
 package controllers	
 
 import (
+	"encoding/json"
     "github.com/brianseitel/snitch/app/models"
     "github.com/revel/revel"
     "time"
@@ -8,6 +9,35 @@ import (
 
 type Scripts struct {
     GorpController
+}
+
+func (c Scripts) parseScriptItem() (models.Script, error) {
+	script := models.Script{}
+	err := json.NewDecoder(c.Request.Body).Decode(&script)
+
+	if len(script.Url) == 0 {
+		script.Url = script.GenerateUrl()
+	}
+
+	return script, err
+}
+
+func (c Scripts) Add() revel.Result {
+	if script, err := c.parseScriptItem(); err != nil {
+		return c.RenderText("Unable to parse entry.")
+	} else {
+		script.Validate(c.Validation)
+
+		if c.Validation.HasErrors() {
+			return c.RenderText("Input has errors.")
+		} else {
+			if err := c.Txn.Insert(&script); err != nil {
+				return c.RenderText("Error inserting record.")
+			} else {
+				return c.RenderJson(script)
+			}
+		}
+	}
 }
 
 func (c Scripts) List() revel.Result {

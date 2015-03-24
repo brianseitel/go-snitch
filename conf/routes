@@ -5,6 +5,7 @@
 module:testrunner
 
 GET     /                                       App.Index
+GET     /add                                    Scripts.Add
 GET     /list                                   Scripts.List
 GET     /checkin                                Scripts.DoCheckin
 
