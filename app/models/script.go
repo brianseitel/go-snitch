@@ -17,8 +17,29 @@ type Script struct {
 	Url         string
 }
 
+func (s *Script) ReadableInterval() string {
+	switch s.Interval {
+		case `1`:
+			return "Every minute"
+		case `30`:
+			return "Every 30 minutes"
+		case `60`:
+			return "Hourly"
+		case `120`:
+			return "Every two hours"
+		case `86400`: 
+			return "Daily"
+		case `604800`:
+			return "Weekly"
+		case `2592000`:
+			return "Monthly"
+	}
+
+	return "Invalid Interval"
+}
+
 func (s *Script) Late() bool {
-	return s.Severity != 0
+	return s.Severity > 0
 }
 
 func (s *Script) LastSeen() string {

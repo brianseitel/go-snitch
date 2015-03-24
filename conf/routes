@@ -8,7 +8,7 @@ module:jobs
 GET     /                                       App.Index
 POST    /add                                    Scripts.Add
 GET     /list                                   Scripts.List
-# GET     /:url                                   Scripts.DoCheckin
+GET     /:url                                   Scripts.DoCheckin
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

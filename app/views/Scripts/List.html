@@ -32,13 +32,13 @@
             <div class="form-group">
               <label>Interval</label>
               <select name="interval" class="form-control">
-                <option value="1 minute">Every Minute</option>
-                <option value="30 minute">Every 30 Minutes</option>
-                <option value="1 hour">Every Hour</option>
-                <option value="2 hour">Every Two Hours</option>
-                <option value="1 day">Every Day</option>
-                <option value="1 week">Every Week</option>
-                <option value="1 month">Every Month</option>
+                <option value="1">Every Minute</option>
+                <option value="30">Every 30 Minutes</option>
+                <option value="60">Every Hour</option>
+                <option value="120">Every Two Hours</option>
+                <option value="86400">Every Day</option>
+                <option value="604800">Every Week</option>
+                <option value="2592000">Every Month</option>
               </select>
             </div>
 
@@ -55,14 +55,16 @@
             <tr>
               <td style="vertical-align: middle">
                 {{ if .Late }}
-                  <span class="glyphicon glyphicon-ok-sign" style="color: #009900;font-size: 2em"></span>
-                {{ else }}
                   <span class="glyphicon glyphicon-remove-sign" style="color: #990000;font-size: 2em"></span>
+                {{ else }}
+                  <span class="glyphicon glyphicon-ok-sign" style="color: #009900;font-size: 2em"></span>
                 {{ end }}
               </td>
               <td>{{ $script.Name }}</td>
-              <td>{{ $script.Interval }}</td>
-              <td>Last seen <strong>{{ $script.LastSeen }} ago</strong></td>
+              <td>{{ $script.ReadableInterval }}</td>
+              <td>
+                Last seen <strong>{{ $script.LastSeen }} ago</strong>
+              </td>
               <td>
               </td>
             </tr>

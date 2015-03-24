@@ -6,7 +6,6 @@ import (
 	"strings"
 	"time"
 
-	j "github.com/brianseitel/snitch/app/jobs"
 	"github.com/brianseitel/snitch/app/models"
 	"github.com/coopernurse/gorp"
 	_ "github.com/go-sql-driver/mysql"
@@ -36,7 +35,7 @@ func init() {
 	// register startup functions with OnAppStart
 	// ( order dependent )
 	revel.OnAppStart(InitDB)
-	revel.OnAppStart(func() { jobs.Every(1*time.Minute, j.TrackerJob{}) })
+	revel.OnAppStart(func() { jobs.Every(1 * time.Minute, TrackerJob{}) })
 
 	// revel.OnAppStart(FillCache)
 }
